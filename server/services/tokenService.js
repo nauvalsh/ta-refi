@@ -34,20 +34,38 @@ const signToken = (userId, expires, type, jwtSecret = config.jwt.secret) => {
  * @returns Object of tokens
  */
 const generateAuthToken = async (user) => {
-  const accessTokenExpires = dayjs().add(config.jwt.accessExpirationDays, 'day');
-  const refreshTokenExpires = dayjs().add(config.jwt.refreshExpirationDays, 'day');
+  const accessTokenExpires = dayjs().add(
+    config.jwt.accessExpirationDays,
+    'day'
+  );
+
+  const refreshTokenExpires = dayjs().add(
+    config.jwt.refreshExpirationDays,
+    'day'
+  );
 
   const accessToken = signToken(user.id, accessTokenExpires, tokenTypes.ACCESS);
 
-  const refreshToken = signToken(user.id, refreshTokenExpires, tokenTypes.REFRESH);
+  const refreshToken = signToken(
+    user.id,
+    refreshTokenExpires,
+    tokenTypes.REFRESH
+  );
 
-  await saveToken(refreshToken, user.id, tokenTypes.REFRESH, refreshTokenExpires);
+  await saveToken(
+    refreshToken,
+    user.id,
+    tokenTypes.REFRESH,
+    refreshTokenExpires
+  );
 
   return {
     accessToken,
     accessTokenExpires: dayjs(accessTokenExpires).format('YYYY-MM-DD HH:mm:ss'),
     refreshToken,
-    refreshTokenExpires: dayjs(refreshTokenExpires).format('YYYY-MM-DD HH:mm:ss'),
+    refreshTokenExpires: dayjs(refreshTokenExpires).format(
+      'YYYY-MM-DD HH:mm:ss'
+    ),
   };
 };
 
@@ -61,7 +79,13 @@ const generateAuthToken = async (user) => {
  * @returns New Token
  */
 const saveToken = async (token, userId, type, expires, blacklisted = false) => {
-  const tokenDoc = await Token.create({ token, userId, type, expires, blacklisted });
+  const tokenDoc = await Token.create({
+    token,
+    userId,
+    type,
+    expires,
+    blacklisted,
+  });
 
   return tokenDoc;
 };
