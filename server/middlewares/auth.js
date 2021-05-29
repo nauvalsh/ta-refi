@@ -2,10 +2,17 @@ const passport = require('passport');
 const httpStatus = require('http-status');
 const AppError = require('../utils/appError');
 
-const verifyCallback = (req, resolve, reject, roles) => async (err, user, info) => {
+const verifyCallback = (req, resolve, reject, roles) => async (
+  err,
+  user,
+  info
+) => {
   if (err || info || !user) {
     return reject(
-      new AppError(err || info || 'Please authenticate', httpStatus.UNAUTHORIZED)
+      new AppError(
+        err || info || 'Please authenticate',
+        httpStatus.UNAUTHORIZED
+      )
     );
   }
   req.user = user;
