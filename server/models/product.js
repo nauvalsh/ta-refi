@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       weight: DataTypes.DOUBLE,
       stock: DataTypes.DOUBLE,
       unit: DataTypes.STRING,
+      image: DataTypes.STRING,
       desc: DataTypes.TEXT,
       isActive: DataTypes.BOOLEAN,
     },

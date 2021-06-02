@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       categoryName: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(99),
         allowNull: false,
         unique: true,
       },

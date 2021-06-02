@@ -65,23 +65,23 @@ app.use(xss());
 app.use(compression());
 
 // api request limiter
-app.use('/api', apiLimiter);
+app.use('/testnode/api', apiLimiter);
 
 // limit repeated failed requests to auth endpoints
 if (process.env.NODE_ENV === 'production') {
-  app.use('/api/v1/auth', authLimiter);
+  app.use('/testnode/api/v1/auth', authLimiter);
 }
 
 // Router
 const routerV1 = require('./routes/v1/index');
 
 // Routes
-app.use(`/api/v1`, routerV1);
+app.use(`/testnode/api/v1`, routerV1);
 
 // Swagger Docs
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/testnode/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Handle route not found
 app.all('*', (req, res, next) => {

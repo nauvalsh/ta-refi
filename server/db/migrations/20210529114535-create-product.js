@@ -32,6 +32,9 @@ module.exports = {
       unit: {
         type: Sequelize.STRING,
       },
+      image: {
+        type: Sequelize.STRING,
+      },
       desc: {
         type: Sequelize.TEXT,
       },

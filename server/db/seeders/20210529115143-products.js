@@ -23,6 +23,7 @@ module.exports = {
           stock: 10,
           unit: 'pcs',
           desc: 'Indomie Goreng Spesial per-piece',
+          image: 'indomiegorengspecial.png',
           isActive: true,
         },
         {
@@ -33,6 +34,7 @@ module.exports = {
           stock: 8,
           unit: 'pcs',
           desc: 'Sabun Giv batangan',
+          image: 'sabungiv.jpg',
           isActive: true,
         },
         {
@@ -43,6 +45,7 @@ module.exports = {
           stock: 20,
           unit: 'pcs',
           desc: 'Shampo Lifebuoy sasetan',
+          image: 'lifebuoysaset.jpg',
           isActive: true,
         },
       ],
