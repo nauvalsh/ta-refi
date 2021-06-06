@@ -26,13 +26,6 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         unique: { msg: 'Email address already in use!' },
-        allowNull: false,
-        validate: {
-          isEmail: {
-            args: true,
-            msg: 'Please enter an valid email address',
-          },
-        },
       },
       phoneNumber: {
         type: DataTypes.STRING,
@@ -51,13 +44,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          len: {
-            args: [3, 64],
-            msg: 'Password must be greater than or equal to 3 characters',
-          },
-        },
       },
       photo: DataTypes.STRING,
       role: {

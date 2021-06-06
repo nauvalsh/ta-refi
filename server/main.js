@@ -53,7 +53,7 @@ app.set('views', path.join(__dirname, 'views'));
 // body parser, reading data from body into req.body
 app.use(express.json({ limit: '20mb' }));
 // Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/testnode', express.static(path.join(__dirname, 'public')));
 // body parser, reading data from form into req.body
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 // Cookie parser, reading data from cookies into req.cookies
