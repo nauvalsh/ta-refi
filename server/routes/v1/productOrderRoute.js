@@ -13,6 +13,8 @@ router
     productOrderController.createProductOrder
   );
 
+router.route('/users').get(productOrderController.getProductOrderByUsers);
+
 router.route('/:id').delete(auth('admin'), productOrderController.deleteProductOrder);
 
 module.exports = router;

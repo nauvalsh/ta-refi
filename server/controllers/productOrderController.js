@@ -5,16 +5,19 @@ const {
   ShippingOrder,
   User,
   sequelize,
+  Sequelize,
 } = require('../models');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const { getAll, createOne, deleteOne } = require('./refactorController');
+const { Op } = require('sequelize');
 
 const getProductOrders = getAll(ProductOrder, 'productOrders');
 const deleteProductOrder = deleteOne(ProductOrder, 'productOrder');
 
 const createProductOrder = catchAsync(async (req, res, next) => {
   await sequelize.transaction(async (transaction) => {
+    console.log(req.body);
     const { user, orderDetails, ...restBody } = req.body;
 
     const [userDb, isCreated] = await User.findOrCreate({
@@ -60,15 +63,12 @@ const createProductOrder = catchAsync(async (req, res, next) => {
         },
       });
 
-      if (product.stock < item.qty)
-        throw new AppError('Stock is not enough', 400);
+      if (product.stock < item.qty) throw new AppError('Stock is not enough', 400);
 
       product.stock = product.stock - item.qty;
 
       await product.save({ transaction });
     }
-
-    console.log(orderDetails);
 
     return res.status(200).json({
       status: 'success',
@@ -115,8 +115,39 @@ const cancelProductOrder = catchAsync(async (req, res, next) => {
   });
 });
 
+const getProductOrderByUsers = catchAsync(async (req, res, next) => {
+  let users = await User.findAll({
+    attributes: ['id', 'name', 'email'],
+    include: [
+      {
+        model: ProductOrder,
+        as: 'productOrders',
+        attributes: {
+          exclude: ['userId', 'createdAt', 'updatedAt'],
+        },
+        required: true,
+      },
+    ],
+  });
+
+  let modifyUser = [];
+
+  for (let user of users) {
+    user.setDataValue('totalOrders', user.productOrders.length);
+    modifyUser.push(user);
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      users: modifyUser,
+    },
+  });
+});
+
 module.exports = {
   getProductOrders,
   createProductOrder,
   deleteProductOrder,
+  getProductOrderByUsers,
 };
