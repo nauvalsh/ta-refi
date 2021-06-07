@@ -39,8 +39,9 @@ const createProductOrder = catchAsync(async (req, res, next) => {
       { transaction }
     );
 
-    orderDetails.map(async (item, i) => {
-      await ProductOrderDetail.create(
+    let items = [];
+    for (let item of orderDetails) {
+      let detail = await ProductOrderDetail.create(
         {
           productorderId: productOrder.id,
           productId: item.productId,
@@ -51,24 +52,65 @@ const createProductOrder = catchAsync(async (req, res, next) => {
         { transaction }
       );
 
+      items.push(detail);
+
       let product = await Product.findOne({
         where: {
-          id: productId,
+          id: item.productId,
         },
       });
 
-      if (product.stock < item.qty) throw new AppError('Stock is not enough', 400);
+      if (product.stock < item.qty)
+        throw new AppError('Stock is not enough', 400);
 
       product.stock = product.stock - item.qty;
 
-      await product.save();
-    });
+      await product.save({ transaction });
+    }
+
+    console.log(orderDetails);
 
     return res.status(200).json({
       status: 'success',
       data: {
         productOrder,
+        productOrderDetails: items,
       },
+    });
+  });
+});
+
+const cancelProductOrder = catchAsync(async (req, res, next) => {
+  await sequelize.transaction(async (transaction) => {
+    const { productorderId } = req.params;
+
+    const productOrder = await ProductOrder.findOne({
+      where: {
+        id: productorderId,
+      },
+      include: [
+        {
+          model: ProductOrderDetail,
+          as: 'productOrderDetails',
+        },
+      ],
+    });
+
+    for (let item of productOrder.productOrderDetails) {
+      let product = await Product.findOne({
+        where: {
+          id: item.productId,
+        },
+      });
+
+      product.stock = item.qty + product.stock;
+
+      await product.save({ transaction });
+    }
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Order has been cancelled',
     });
   });
 });
