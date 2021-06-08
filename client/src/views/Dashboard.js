@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import Navbar from "components/Navbar.js";
-import Sidebar from "components/Sidebar.js";
-import LineChart from "components/LineChart.js";
-import BarChart from "components/BarChart.js";
+import Navbar from 'components/Navbar.js';
+import Sidebar from 'components/Sidebar.js';
+import LineChart from 'components/LineChart.js';
+import BarChart from 'components/BarChart.js';
 
 export default function Dashboard() {
   return (
     <>
       <Sidebar />
       <div className="relative md:ml-64 bg-blueGray-100">
-        <Navbar />
+        <Navbar title="Dashboard" />
         {/* Header */}
-        <div className="relative bg-pink-600 md:pt-32 pb-32 pt-12">
+        <div className="relative  md:pt-32 pb-32 pt-12">
           <div className="px-4 md:px-10 mx-auto w-full">
             <div>
               {/* Card stats */}
@@ -35,13 +35,11 @@ export default function Dashboard() {
                           </div>
                         </div>
                       </div>
-                        <p className="text-sm text-blueGray-400 mt-4">
+                      <p className="text-sm text-blueGray-400 mt-4">
                         <span className="text-emerald-500 mr-2">
                           <i className="fas fa-arrow-up"></i> 3.48%
                         </span>
-                        <span className="whitespace-nowrap">
-                          Since last month
-                        </span>
+                        <span className="whitespace-nowrap">Since last month</span>
                       </p>
                     </div>
                   </div>
@@ -68,9 +66,7 @@ export default function Dashboard() {
                         <span className="text-red-500 mr-2">
                           <i className="fas fa-arrow-down"></i> 3.48%
                         </span>
-                        <span className="whitespace-nowrap">
-                          Since last week
-                        </span>
+                        <span className="whitespace-nowrap">Since last week</span>
                       </p>
                     </div>
                   </div>
@@ -97,9 +93,7 @@ export default function Dashboard() {
                         <span className="text-orange-500 mr-2">
                           <i className="fas fa-arrow-down"></i> 1.10%
                         </span>
-                        <span className="whitespace-nowrap">
-                          Since yesterday
-                        </span>
+                        <span className="whitespace-nowrap">Since yesterday</span>
                       </p>
                     </div>
                   </div>
@@ -126,9 +120,7 @@ export default function Dashboard() {
                         <span className="text-emerald-500 mr-2">
                           <i className="fas fa-arrow-up"></i> 12%
                         </span>
-                        <span className="whitespace-nowrap">
-                          Since last month
-                        </span>
+                        <span className="whitespace-nowrap">Since last month</span>
                       </p>
                     </div>
                   </div>
@@ -156,7 +148,7 @@ export default function Dashboard() {
                       <button
                         className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
                         type="button"
-                        style={{ transition: "all .15s ease" }}
+                        style={{ transition: 'all .15s ease' }}
                       >
                         See all
                       </button>
@@ -276,7 +268,7 @@ export default function Dashboard() {
                       <button
                         className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
                         type="button"
-                        style={{ transition: "all .15s ease" }}
+                        style={{ transition: 'all .15s ease' }}
                       >
                         See all
                       </button>
@@ -296,7 +288,7 @@ export default function Dashboard() {
                         </th>
                         <th
                           className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-                          style={{ minWidth: "140px" }}
+                          style={{ minWidth: '140px' }}
                         ></th>
                       </tr>
                     </thead>
@@ -314,7 +306,7 @@ export default function Dashboard() {
                             <div className="relative w-full">
                               <div className="overflow-hidden h-2 text-xs flex rounded bg-red-200">
                                 <div
-                                  style={{ width: "60%" }}
+                                  style={{ width: '60%' }}
                                   className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
                                 ></div>
                               </div>
@@ -335,7 +327,7 @@ export default function Dashboard() {
                             <div className="relative w-full">
                               <div className="overflow-hidden h-2 text-xs flex rounded bg-emerald-200">
                                 <div
-                                  style={{ width: "70%" }}
+                                  style={{ width: '70%' }}
                                   className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
                                 ></div>
                               </div>
@@ -356,7 +348,7 @@ export default function Dashboard() {
                             <div className="relative w-full">
                               <div className="overflow-hidden h-2 text-xs flex rounded bg-purple-200">
                                 <div
-                                  style={{ width: "80%" }}
+                                  style={{ width: '80%' }}
                                   className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"
                                 ></div>
                               </div>
@@ -377,7 +369,7 @@ export default function Dashboard() {
                             <div className="relative w-full">
                               <div className="overflow-hidden h-2 text-xs flex rounded bg-lightBlue-200">
                                 <div
-                                  style={{ width: "75%" }}
+                                  style={{ width: '75%' }}
                                   className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-lightBlue-500"
                                 ></div>
                               </div>
@@ -398,7 +390,7 @@ export default function Dashboard() {
                             <div className="relative w-full">
                               <div className="overflow-hidden h-2 text-xs flex rounded bg-orange-200">
                                 <div
-                                  style={{ width: "30%" }}
+                                  style={{ width: '30%' }}
                                   className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
                                 ></div>
                               </div>
@@ -412,13 +404,14 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
+          {/* FOOTER */}
           <footer className="block py-4">
             <div className="container mx-auto px-4">
               <hr className="mb-4 border-b-1 border-blueGray-200" />
               <div className="flex flex-wrap items-center md:justify-between justify-center">
                 <div className="w-full md:w-4/12 px-4">
                   <div className="text-sm text-blueGray-500 font-semibold py-1">
-                    Copyright © {new Date().getFullYear()}{" "}
+                    Copyright © {new Date().getFullYear()}{' '}
                     <a
                       href="https://www.creative-tim.com"
                       className="text-blueGray-500 hover:text-blueGray-700 text-sm font-semibold py-1"

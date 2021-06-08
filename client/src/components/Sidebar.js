@@ -23,7 +23,7 @@ export default function Sidebar() {
             className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
             to="/"
           >
-            Tailwind Starter Kit
+            POS
           </Link>
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
@@ -49,7 +49,7 @@ export default function Sidebar() {
                     className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                     to="/"
                   >
-                    Tailwind Starter Kit
+                    POS
                   </Link>
                 </div>
                 <div className="w-6/12 flex justify-end">
@@ -88,16 +88,31 @@ export default function Sidebar() {
                   className="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
                   to="/category"
                 >
-                  <i className="fas fa-list opacity-75 mr-2 text-sm" 
-                  ></i> Category
+                  <i className="fas fa-list opacity-75 mr-2 text-sm"></i> Category
                 </Link>
               </li>
               <li className="items-center">
                 <Link
                   className="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
-                  to="/dashboard"
+                  to="/cart"
+                >
+                  <i className="fas fa-cube opacity-75 mr-2 text-sm"></i> Cart
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link
+                  className="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
+                  to="/product"
                 >
                   <i className="fas fa-cube opacity-75 mr-2 text-sm"></i> Product
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link
+                  className="text-pink-500 hover:text-pink-600 text-xs uppercase py-3 font-bold block"
+                  to="/product/add"
+                >
+                  <i className="fas fa-cube opacity-75 mr-2 text-sm"></i> Add Product
                 </Link>
               </li>
               <li className="items-center">
@@ -151,6 +166,7 @@ export default function Sidebar() {
                   className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
                   href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/documentation/quick-start"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   <i className="fas fa-paint-brush mr-2 text-blueGray-400 text-base"></i>{' '}
                   Docs

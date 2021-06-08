@@ -3,10 +3,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Cookies from 'js-cookie';
 
-import { loginAction } from '../redux/actions/authAction';
+import { registerAction } from '../redux/actions/authAction';
 import { connect } from 'react-redux';
 
-function Login({ login, loading, error, loginAction }) {
+function Register({ login, loading, error, registerAction }) {
   const errorMessage = error?.data?.message ?? null;
 
   let initialValues = {
@@ -17,7 +17,7 @@ function Login({ login, loading, error, loginAction }) {
   const formOnSubmit = (val) => {
     console.log('SUBMIT');
 
-    loginAction(val);
+    registerAction(val);
   };
 
   let validationSchema = Yup.object({
@@ -26,6 +26,8 @@ function Login({ login, loading, error, loginAction }) {
       .required('Email harus diisi')
       .lowercase(),
     password: Yup.string().required('Password harus diisi'),
+    phoneNumber: Yup.string().required('Phone Number harus diisi'),
+    name: Yup.string().required('Name harus diisi'),
   });
 
   const formik = useFormik({
@@ -42,7 +44,7 @@ function Login({ login, loading, error, loginAction }) {
     const isLogin = Cookies.get('token') && localStorage.getItem('isLogin');
 
     if (isLogin) {
-      window.location.assign('/pos');
+      // window.location.assign('/pos');
     }
   }, [login]);
 
@@ -68,7 +70,7 @@ function Login({ login, loading, error, loginAction }) {
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
                   <div className="rounded-t mb-0 px-6 py-6">
                     <div className="text-center mb-3">
-                      <h3 className="text-gray-600 text-lg font-bold">Login</h3>
+                      <h3 className="text-gray-600 text-lg font-bold">Register</h3>
                     </div>
 
                     <hr className="mt-6 border-b-1 border-gray-400" />
@@ -76,6 +78,46 @@ function Login({ login, loading, error, loginAction }) {
                   <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                     <div className="text-gray-500 text-center mb-3 font-bold"></div>
                     <form onSubmit={formik.handleSubmit}>
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="grid-password"
+                        >
+                          Name
+                        </label>
+                        <input
+                          type="text"
+                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          placeholder="Name"
+                          style={{ transition: 'all .15s ease' }}
+                          name="name"
+                          onChange={inputOnChange}
+                          onBlur={formik.handleBlur}
+                        />
+                        <p className="text-red-500 text-xs">
+                          {formik.errors?.name ?? errorMessage}
+                        </p>
+                      </div>
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="grid-password"
+                        >
+                          Phone Number
+                        </label>
+                        <input
+                          type="text"
+                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          placeholder="Phone Number"
+                          style={{ transition: 'all .15s ease' }}
+                          name="phoneNumber"
+                          onChange={inputOnChange}
+                          onBlur={formik.handleBlur}
+                        />
+                        <p className="text-red-500 text-xs">
+                          {formik.errors?.phoneNumber ?? errorMessage}
+                        </p>
+                      </div>
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -117,21 +159,20 @@ function Login({ login, loading, error, loginAction }) {
                           {formik.errors?.password ?? errorMessage}
                         </p>
                       </div>
-
                       <div className="text-center mt-6">
                         <button
                           className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
                           type="submit"
                           style={{ transition: 'all .15s ease' }}
                         >
-                          Sign In
+                          Register
                         </button>
                       </div>
                     </form>
                     <div className="flex flex-wrap mt-6">
                       <div className="text-center mx-auto">
-                        <a href="register" className="text-gray-900">
-                          <small>Create new account</small>
+                        <a href="login" className="text-gray-900">
+                          <small>Sign In</small>
                         </a>
                       </div>
                     </div>
@@ -154,4 +195,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { loginAction })(Login);
+export default connect(mapStateToProps, { registerAction })(Register);
