@@ -71,6 +71,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
+      defaultScope: {
+        attributes: { exclude: ['userId'] },
+      },
       modelName: 'User',
       tableName: 'users',
       indexes: [

@@ -49,11 +49,12 @@ exports.getOne = (Model, table, includeModel = null) =>
     });
   });
 
-exports.getAll = (Model, table) =>
+exports.getAll = (Model, table, include) =>
   catchAsync(async (req, res, next) => {
     const { count, rows } = await Model.findAndCountAll({
       attributes: { exclude: ['createdAt', 'updatedAt'] },
       ...pagination(req),
+      include,
     });
 
     // Response Query

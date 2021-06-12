@@ -12,7 +12,14 @@ const AppError = require('../utils/appError');
 const { getAll, createOne, deleteOne } = require('./refactorController');
 const { Op } = require('sequelize');
 
-const getProductOrders = getAll(ProductOrder, 'productOrders');
+let include = [
+  {
+    model: ProductOrderDetail,
+    as: 'productOrderDetails',
+  },
+];
+
+const getProductOrders = getAll(ProductOrder, 'productOrders', include);
 const deleteProductOrder = deleteOne(ProductOrder, 'productOrder');
 
 const createProductOrder = catchAsync(async (req, res, next) => {
@@ -128,12 +135,20 @@ const getProductOrderByUsers = catchAsync(async (req, res, next) => {
         required: true,
       },
     ],
+    order: [[{ model: ProductOrder, as: 'productOrders' }, 'id', 'DESC']],
   });
 
   let modifyUser = [];
 
   for (let user of users) {
+    let totalBelanja = 0;
+
+    for (let productOrder of user.productOrders) {
+      totalBelanja = totalBelanja + productOrder.priceOrder;
+    }
+
     user.setDataValue('totalOrders', user.productOrders.length);
+    user.setDataValue('totalBelanja', totalBelanja);
     modifyUser.push(user);
   }
 
@@ -150,4 +165,5 @@ module.exports = {
   createProductOrder,
   deleteProductOrder,
   getProductOrderByUsers,
+  cancelProductOrder,
 };

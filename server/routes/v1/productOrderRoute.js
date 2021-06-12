@@ -7,11 +7,7 @@ const files = require('../../utils/files');
 router
   .route('/')
   .get(productOrderController.getProductOrders)
-  .post(
-    auth('admin'),
-    files.uploadSingle('products', 'image', './public/images/products'),
-    productOrderController.createProductOrder
-  );
+  .post(auth('admin'), productOrderController.createProductOrder);
 
 router.route('/users').get(productOrderController.getProductOrderByUsers);
 
