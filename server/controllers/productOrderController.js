@@ -115,7 +115,6 @@ const cancelProductOrder = catchAsync(async (req, res, next) => {
       await product.save({ transaction });
     }
 
-
     productOrder.orderStatus = 'cancel';
     await productOrder.save();
 
@@ -128,7 +127,7 @@ const cancelProductOrder = catchAsync(async (req, res, next) => {
 
 const getProductOrderByUsers = catchAsync(async (req, res, next) => {
   let users = await User.findAll({
-    attributes: ['id', 'name', 'email'],
+    attributes: ['id', 'name', 'email', 'phoneNumber'],
     include: [
       {
         model: ProductOrder,
@@ -164,20 +163,20 @@ const getProductOrderByUsers = catchAsync(async (req, res, next) => {
   });
 });
 
-const updateProductOrder = catchAsync(async(req,res,next) => {
-  const updateProductOrder = await ProductOrder.update(req.body,{
+const updateProductOrder = catchAsync(async (req, res, next) => {
+  const updateProductOrder = await ProductOrder.update(req.body, {
     where: {
-      id: req.params.id
-    }
+      id: req.params.id,
+    },
   });
 
   res.status(200).json({
     status: 'success',
     data: {
-      updateProductOrder
-    }
-  })
-})
+      updateProductOrder,
+    },
+  });
+});
 
 module.exports = {
   getProductOrders,
@@ -185,5 +184,5 @@ module.exports = {
   deleteProductOrder,
   getProductOrderByUsers,
   cancelProductOrder,
-  updateProductOrder
+  updateProductOrder,
 };

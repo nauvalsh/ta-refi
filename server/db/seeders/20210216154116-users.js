@@ -1,5 +1,9 @@
 'use strict';
 
+function randomDate(start, end) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
 let faker = require('faker');
 let data = [];
 
@@ -16,6 +20,7 @@ for (let i = 0; i < 50; i++) {
       apiKey: faker.finance.ethereumAddress(),
       active: 1,
       activationToken: faker.finance.litecoinAddress(),
+      createdAt: randomDate(new Date(2021, 0, 1), new Date()),
     });
   }
 
@@ -29,6 +34,7 @@ for (let i = 0; i < 50; i++) {
     apiKey: faker.finance.ethereumAddress(),
     active: 1,
     activationToken: faker.finance.litecoinAddress(),
+    createdAt: randomDate(new Date(2021, 0, 1), new Date()),
   });
 }
 
