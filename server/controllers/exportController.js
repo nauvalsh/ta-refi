@@ -2,7 +2,7 @@ const catchAsync = require('../utils/catchAsync');
 const { Op } = require('sequelize');
 const { User } = require('./../models');
 //Required package
-var pdf = require('pdf-creator-node');
+// var pdf = require('pdf-creator-node');
 // docs: https://www.npmjs.com/package/pdf-creator-node
 var fs = require('fs');
 // Require library
@@ -19,76 +19,76 @@ const stream = (req, res) => {
   file.pipe(res);
 };
 
-exports.exportInvoice = catchAsync(async (req, res, next) => {
-  let fileName = `invoice`;
-  // Read HTML Template
-  let html = fs.readFileSync('./documents/templates/invoice.html', 'utf8');
+// exports.exportInvoice = catchAsync(async (req, res, next) => {
+//   let fileName = `invoice`;
+//   // Read HTML Template
+//   let html = fs.readFileSync('./documents/templates/invoice.html', 'utf8');
 
-  // Options
-  var options = {
-    format: 'A4',
-    orientation: 'portrait',
-    border: '10mm',
-  };
+//   // Options
+//   var options = {
+//     format: 'A4',
+//     orientation: 'portrait',
+//     border: '10mm',
+//   };
 
-  // data dummy
-  var users = [
-    {
-      name: 'Shyam',
-      age: '26',
-    },
-    {
-      name: 'Navjot',
-      age: '26',
-    },
-    {
-      name: 'Vitthal',
-      age: '26',
-    },
-  ];
+//   // data dummy
+//   var users = [
+//     {
+//       name: 'Shyam',
+//       age: '26',
+//     },
+//     {
+//       name: 'Navjot',
+//       age: '26',
+//     },
+//     {
+//       name: 'Vitthal',
+//       age: '26',
+//     },
+//   ];
 
-  // document
-  var document = {
-    html: html,
-    data: {
-      users: users,
-    },
-    path: `./public/pdf/${fileName}.pdf`,
-    type: 'buffer', // stream / buffer (default type: '')
-  };
-  // By default a file is created but you could switch between Buffer and Streams by using "buffer" or "stream" respectively.
+//   // document
+//   var document = {
+//     html: html,
+//     data: {
+//       users: users,
+//     },
+//     path: `./public/pdf/${fileName}.pdf`,
+//     type: 'buffer', // stream / buffer (default type: '')
+//   };
+//   // By default a file is created but you could switch between Buffer and Streams by using "buffer" or "stream" respectively.
 
-  pdf
-    .create(document, options)
-    .then((doc) => {
-      // DOWNLOAD (type:'buffer')
-      res.set('Content-disposition', 'attachment; filename=' + fileName + '.pdf');
-      res.set('Content-Type', 'application/pdf');
-      res.end(doc);
+//   pdf
+//     .create(document, options)
+//     .then((doc) => {
+//       // DOWNLOAD (type:'buffer')
+//       res.set('Content-disposition', 'attachment; filename=' + fileName + '.pdf');
+//       res.set('Content-Type', 'application/pdf');
+//       res.end(doc);
 
-      // GENERATE (type:'')
-      // res.status(200).json({
-      //   status: 'success',
-      //   message: 'PDF has exported',
-      //   url: req.protocol + '://' + req.get('host') + '/logistics/pdf/' + fileName + '.pdf',
-      // });
+//       // GENERATE (type:'')
+//       // res.status(200).json({
+//       //   status: 'success',
+//       //   message: 'PDF has exported',
+//       //   url: req.protocol + '://' + req.get('host') + '/logistics/pdf/' + fileName + '.pdf',
+//       // });
 
-      // // STREAM (type:'stream')
-      // res.writeHead(200, {
-      //   'Content-Type': 'application/pdf',
-      //   'Access-Control-Allow-Origin': '*',
-      //   'Content-Disposition': `inline; filename=${fileName}`,
-      // });
-      // var resStream = doc.pipe(res); // readableStm should be a READABLE stream
-      // // listen to the finish ev.
-      // resStream.on('finish', function () {
-      //   res.end();
-      // });
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
+//       // // STREAM (type:'stream')
+//       // res.writeHead(200, {
+//       //   'Content-Type': 'application/pdf',
+//       //   'Access-Control-Allow-Origin': '*',
+//       //   'Content-Disposition': `inline; filename=${fileName}`,
+//       // });
+//       // var resStream = doc.pipe(res); // readableStm should be a READABLE stream
+//       // // listen to the finish ev.
+//       // resStream.on('finish', function () {
+//       //   res.end();
+//       // });
+//     })
+//     .catch((error) => {
+//       next(error);
+//     });
+// });
 
 exports.exportExcel = catchAsync(async (req, res, next) => {
   // const { storeId } = req.query;

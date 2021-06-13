@@ -31,6 +31,7 @@ const auth = require('../../middlewares/auth');
  *              $ref: '#/components/responses/Unauthorized'
  *
  */
-router.route('/').get(auth('superadmin'), userController.getUsers);
+router.route('/:month/:year').get(userController.getUserByMonth);
+router.route('/').get(userController.getUsers);
 
 module.exports = router;

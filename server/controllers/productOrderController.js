@@ -115,6 +115,10 @@ const cancelProductOrder = catchAsync(async (req, res, next) => {
       await product.save({ transaction });
     }
 
+
+    productOrder.orderStatus = 'cancel';
+    await productOrder.save();
+
     res.status(200).json({
       status: 'success',
       message: 'Order has been cancelled',
@@ -160,10 +164,26 @@ const getProductOrderByUsers = catchAsync(async (req, res, next) => {
   });
 });
 
+const updateProductOrder = catchAsync(async(req,res,next) => {
+  const updateProductOrder = await ProductOrder.update(req.body,{
+    where: {
+      id: req.params.id
+    }
+  });
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      updateProductOrder
+    }
+  })
+})
+
 module.exports = {
   getProductOrders,
   createProductOrder,
   deleteProductOrder,
   getProductOrderByUsers,
   cancelProductOrder,
+  updateProductOrder
 };
