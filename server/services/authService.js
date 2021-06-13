@@ -44,8 +44,10 @@ const loginWithEmailAndPassword = async (body) => {
     },
   });
 
+  let isPasswordCorrect = await user.comparePassword(body.password, user.password);
+
   // 3) check if user not found
-  if (!user || !user.comparePassword(body.password, user.password)) {
+  if (!user || !isPasswordCorrect) {
     throw new AppError('Invalid email or password', httpStatus.UNAUTHORIZED);
   }
 

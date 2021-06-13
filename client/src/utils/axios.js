@@ -1,8 +1,11 @@
 import axios from 'axios';
 
+const URL = `http://dreamtechnology.id/testnode/`;
+const URL_LOCAL = `http://localhost:5000/testnode/`;
+
 // Set config defaults when creating the instance
 export const APIPOS = axios.create({
-  baseURL: `http://dreamtechnology.id/testnode/`,
+  baseURL: URL_LOCAL,
 });
 
 // // Alter defaults after instance has been created
