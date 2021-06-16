@@ -18,13 +18,13 @@ module.exports = {
         {
           categoryId: 1,
           productName: 'Indomie Goreng Spesial',
-          price: 2500,
+          price: 2000,
           weight: 100,
           stock: 100,
           unit: 'pcs',
           desc: 'Indomie Goreng Spesial per-piece',
           image: 'indomiegorengspecial.png',
-          isActive: true,
+          isActive: true
         },
         {
           categoryId: 2,
@@ -35,7 +35,7 @@ module.exports = {
           unit: 'pcs',
           desc: 'Sabun Giv batangan',
           image: 'sabungiv.jpg',
-          isActive: true,
+          isActive: true
         },
         {
           categoryId: 3,
@@ -46,8 +46,8 @@ module.exports = {
           unit: 'pcs',
           desc: 'Shampo Lifebuoy sasetan',
           image: 'lifebuoysaset.jpg',
-          isActive: true,
-        },
+          isActive: true
+        }
       ],
       {}
     );
@@ -62,5 +62,5 @@ module.exports = {
      */
 
     await queryInterface.bulkDelete('products', null, {});
-  },
+  }
 };

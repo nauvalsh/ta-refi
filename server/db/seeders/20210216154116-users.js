@@ -20,21 +20,21 @@ for (let i = 0; i < 50; i++) {
       apiKey: faker.finance.ethereumAddress(),
       active: 1,
       activationToken: faker.finance.litecoinAddress(),
-      createdAt: randomDate(new Date(2021, 0, 1), new Date()),
+      createdAt: randomDate(new Date(2021, 0, 1), new Date())
     });
   }
 
   data.push({
     name: faker.name.findName().toUpperCase(),
     email: faker.internet.email().toLowerCase(),
-    phoneNumber: faker.phone.phoneNumberFormat().split('-').join(''),
+    phoneNumber: `${81222695880 + i}`,
     password: '$2a$08$J.gYPG4tIeOTsTsOPauC5OC.6uinjSExXJhrPuXIrvPrsVp18T45S',
     photo: faker.internet.avatar(),
-    role: i % 2 == 1 ? 'admin' : 'user',
+    role: 'user',
     apiKey: faker.finance.ethereumAddress(),
     active: 1,
     activationToken: faker.finance.litecoinAddress(),
-    createdAt: randomDate(new Date(2021, 0, 1), new Date()),
+    createdAt: randomDate(new Date(2021, 0, 1), new Date())
   });
 }
 
@@ -45,5 +45,5 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.bulkDelete('users', null, {});
-  },
+  }
 };

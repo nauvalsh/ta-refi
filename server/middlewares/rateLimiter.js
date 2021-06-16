@@ -5,17 +5,17 @@ const apiLimiter = rateLimit({
   windowsMs: 1 * 60 * 1000,
   message: {
     status: 'fail',
-    message: 'Too many request created from this IP, please try again after a minute',
-  },
+    message: 'Too many request created from this IP, please try again after a minute'
+  }
 });
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 150,
-  skipSuccessfulRequests: true,
+  max: 1000,
+  skipSuccessfulRequests: true
 });
 
 module.exports = {
   apiLimiter,
-  authLimiter,
+  authLimiter
 };
