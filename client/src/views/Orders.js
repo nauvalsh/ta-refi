@@ -43,13 +43,13 @@ const Orders = ({ search }) => {
     return dayjs(data).format('DD MMMM YYYY');
   };
   const history = useHistory();
-  const toOrderDetail = (data) => {
-    distpatch({
-      type: 'RES ORDERS',
-      payload: data
-    });
-    history.push('/detail-order');
-  };
+  // const toOrderDetail = (data) => {
+  //   distpatch({
+  //     type: 'RES ORDERS',
+  //     payload: data
+  //   });
+  //   history.push('/detail-order');
+  // };
   return (
     <div>
       <Wrapper title="Orders">
