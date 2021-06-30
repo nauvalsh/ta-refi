@@ -35,10 +35,10 @@ const Card = ({ name, stock, price, img, order, id }) => {
   };
 
   return (
-    <div className="flex flex-col max-w-xs m-2 bg-white px-8 py-6 rounded-xl space-y-5 items-center shadow-lg">
+    <div className="flex flex-col max-w-xs m-2 bg-white px-8 py-6 rounded-xl space-y-5 items-center justify-between shadow-lg">
       <h3 className="font-serif font-bold text-gray-900 text-xl">{name}</h3>
       <img
-        className="w-full rounded-md h-60"
+        className="rounded-md h-60 w-60"
         src={`${envs.URL}images/products/` + img}
         alt="motivation"
       />

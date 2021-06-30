@@ -37,7 +37,7 @@ const Print = () => {
       </div>
       <div className="page">
         <header className="mb-3 flex flex-row justify-between">
-          <h1 className="text-lg">Toko Ibu Lina</h1>
+          <h1 className="text-lg font-bold">Toko Ibu Lina</h1>
           <h1 className="text-sm">Order ID: #{order && `${order.id}`.padStart(5, 0)}</h1>
         </header>
         <hr />
@@ -102,6 +102,8 @@ const Print = () => {
               </td>
             </tr>
           </table>
+
+          <div className="mt-8">{order && order.orderNote}</div>
         </main>
       </div>
     </>

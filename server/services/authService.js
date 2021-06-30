@@ -16,7 +16,7 @@ const registerNewUser = async (body) => {
     name,
     email,
     phoneNumber,
-    password,
+    password
   });
 
   user.password = undefined;
@@ -37,17 +37,22 @@ const loginWithEmailAndPassword = async (body) => {
   // 2) get user from database
   const user = await User.findOne({
     where: {
-      email: body.email,
+      email: body.email
     },
     attributes: {
-      exclude: ['createdAt', 'updatedAt'],
-    },
+      exclude: ['createdAt', 'updatedAt']
+    }
   });
+
+  // 3) check if user not found
+  if (!user) {
+    throw new AppError('Invalid email or password', httpStatus.UNAUTHORIZED);
+  }
 
   let isPasswordCorrect = await user.comparePassword(body.password, user.password);
 
   // 3) check if user not found
-  if (!user || !isPasswordCorrect) {
+  if (!isPasswordCorrect) {
     throw new AppError('Invalid email or password', httpStatus.UNAUTHORIZED);
   }
 
@@ -89,7 +94,7 @@ const logout = async (refreshToken) => {
   const refreshTokenDoc = await Token.findOne({
     token: refreshToken,
     type: tokenTypes.REFRESH,
-    blacklisted: false,
+    blacklisted: false
   });
 
   if (!refreshTokenDoc) {
@@ -121,8 +126,8 @@ const resetPassword = async (resetPasswordToken, newPassword) => {
     await Token.destroy({
       where: {
         userId: user.id,
-        type: tokenTypes.RESET_PASSWORD,
-      },
+        type: tokenTypes.RESET_PASSWORD
+      }
     });
   } catch (error) {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
@@ -134,5 +139,5 @@ module.exports = {
   loginWithEmailAndPassword,
   refreshAuth,
   logout,
-  resetPassword,
+  resetPassword
 };

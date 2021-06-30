@@ -159,7 +159,7 @@ function Sidebar({ order: { orderDetail } }) {
                 </Link>
               </li> */}
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <a
                   className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
                   href="#pablo"
@@ -168,7 +168,7 @@ function Sidebar({ order: { orderDetail } }) {
                   <i className="fas fa-tools text-blueGray-300 mr-2 text-sm"></i> Settings
                   (soon)
                 </a>
-              </li>
+              </li> */}
             </ul>
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />

@@ -9,6 +9,8 @@ import './index.css';
 import './print.css';
 import { Provider } from 'react-redux';
 
+import './utils/dayjs';
+
 ReactDOM.render(
   <Provider store={store}>
     <Router />
