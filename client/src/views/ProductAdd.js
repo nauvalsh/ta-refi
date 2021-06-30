@@ -220,8 +220,13 @@ function ProductAdd() {
                     <tr>
                       <td>{data.productName}</td>
                       <td className="text-center">{data.stock}</td>
-                      <td className="text-center" onClick={() => onDelet(data.id)}>
-                        Delete
+                      <td
+                        className="text-center cursor-pointer"
+                        onClick={() => onDelet(data.id)}
+                      >
+                        <div className="inline-block px-2 py-1 bg-pink-500 mb-2 text-white">
+                          Delete
+                        </div>
                       </td>
                     </tr>
                   ))

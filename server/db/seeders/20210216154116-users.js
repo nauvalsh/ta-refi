@@ -13,7 +13,7 @@ for (let i = 0; i < 50; i++) {
     data.push({
       name: 'Refi'.toUpperCase(),
       email: 'refi@gmail.com',
-      phoneNumber: '087875789220',
+      phoneNumber: '87875789220',
       password: '$2a$08$J.gYPG4tIeOTsTsOPauC5OC.6uinjSExXJhrPuXIrvPrsVp18T45S',
       photo: faker.internet.avatar(),
       role: 'admin',
