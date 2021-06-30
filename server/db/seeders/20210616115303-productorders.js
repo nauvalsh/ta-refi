@@ -17,9 +17,9 @@ let data = [];
 for (let i = 0; i < 50; i++) {
   if (i < 13) {
     data.push({
-      userId: 2,
+      userId: i + 1,
       orderDate: randomDate(new Date(2021, 0, 1), new Date()),
-      priceOrder: i % 2 === 0 ? 20000 : 30000,
+      priceOrder: 30000,
       orderName: faker.name.findName().toUpperCase(),
       orderNote: '-',
       paymentMethod: i % 2 === 0 ? 'TRANSFERBANK' : 'CASH',
@@ -28,8 +28,8 @@ for (let i = 0; i < 50; i++) {
   }
 
   data.push({
-    userId: getRandomInt(1, 49),
-    priceOrder: i % 2 === 0 ? 20000 : 30000,
+    userId: i + 1,
+    priceOrder: 30000,
     orderDate: randomDate(new Date(2021, 0, 1), new Date()),
     orderName: faker.name.findName().toUpperCase(),
     orderNote: '-',

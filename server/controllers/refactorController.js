@@ -15,8 +15,8 @@ exports.createOne = (Model, table, fileField = false, userId = false) =>
     return res.status(200).json({
       status: 'success',
       data: {
-        [table]: newData,
-      },
+        [table]: newData
+      }
     });
   });
 
@@ -31,8 +31,8 @@ exports.deleteOne = (Model, table) =>
     return res.status(200).json({
       status: 'success',
       data: {
-        [table]: doc,
-      },
+        [table]: doc
+      }
     });
   });
 
@@ -40,21 +40,28 @@ exports.getOne = (Model, table, includeModel = null) =>
   catchAsync(async (req, res) => {
     let result = await Model.findByPk(req.params.id, {
       include: includeModel,
-      attributes: { exclude: ['createdAt', 'updatedAt'] },
+      attributes: { exclude: ['createdAt', 'updatedAt'] }
     });
 
     return res.status(200).json({
       status: 'success',
-      [table]: result,
+      [table]: result
     });
   });
 
 exports.getAll = (Model, table, include) =>
   catchAsync(async (req, res, next) => {
+    let where = {};
+
+    if (req.user && req.user.role !== 'admin') {
+      where['userId'] = req.user.id;
+    }
+
     const { count, rows } = await Model.findAndCountAll({
+      where,
       attributes: { exclude: ['createdAt', 'updatedAt'] },
       ...pagination(req),
-      include,
+      include
     });
 
     // Response Query
@@ -63,7 +70,7 @@ exports.getAll = (Model, table, include) =>
       count: count,
       results: rows.length,
       data: {
-        [table]: rows,
-      },
+        [table]: rows
+      }
     });
   });

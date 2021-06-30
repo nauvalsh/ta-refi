@@ -14,19 +14,21 @@ let faker = require('faker');
 let data = [];
 
 // password = test123
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 63; i++) {
   if (i < 13) {
     data.push({
-      productId: i % 2 === 0 ? 1 : 2,
-      unitPrice: i % 2 === 0 ? 2000 : 3000,
+      productId: 2,
+      unitPrice: 3000,
+      productorderId: i + 1,
       qty: 10,
       discount: 0
     });
   }
 
   data.push({
-    productId: i % 2 === 0 ? 1 : 2,
-    unitPrice: i % 2 === 0 ? 2000 : 3000,
+    productId: 2,
+    unitPrice: 3000,
+    productorderId: i + 1,
     qty: 10,
     discount: 0
   });

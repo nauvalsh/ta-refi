@@ -5,21 +5,28 @@ const {
   ShippingOrder,
   User,
   sequelize,
-  Sequelize,
+  Sequelize
 } = require('../models');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const { getAll, createOne, deleteOne } = require('./refactorController');
+const { getAll, createOne, deleteOne, getOne } = require('./refactorController');
 const { Op } = require('sequelize');
 
 let include = [
   {
     model: ProductOrderDetail,
     as: 'productOrderDetails',
-  },
+    include: [
+      {
+        model: Product,
+        as: 'product'
+      }
+    ]
+  }
 ];
 
 const getProductOrders = getAll(ProductOrder, 'productOrders', include);
+const getOneProductOrders = getOne(ProductOrder, 'productOrders', include);
 const deleteProductOrder = deleteOne(ProductOrder, 'productOrder');
 
 const createProductOrder = catchAsync(async (req, res, next) => {
@@ -30,7 +37,7 @@ const createProductOrder = catchAsync(async (req, res, next) => {
     const [userDb, isCreated] = await User.findOrCreate({
       where: { phoneNumber: user.phoneNumber },
       defaults: user,
-      transaction,
+      transaction
     });
 
     let orderStatus = 'completed';
@@ -44,7 +51,7 @@ const createProductOrder = catchAsync(async (req, res, next) => {
         orderName: restBody.orderName,
         orderNote: restBody.orderNote,
         orderStatus: orderStatus,
-        paymentMethod: restBody.paymentMethod,
+        paymentMethod: restBody.paymentMethod
       },
       { transaction }
     );
@@ -57,7 +64,7 @@ const createProductOrder = catchAsync(async (req, res, next) => {
           productId: item.productId,
           unitPrice: item.unitPrice,
           qty: item.qty,
-          discount: item.discount,
+          discount: item.discount
         },
         { transaction }
       );
@@ -66,8 +73,8 @@ const createProductOrder = catchAsync(async (req, res, next) => {
 
       let product = await Product.findOne({
         where: {
-          id: item.productId,
-        },
+          id: item.productId
+        }
       });
 
       if (product.stock < item.qty) throw new AppError('Stock is not enough', 400);
@@ -81,8 +88,8 @@ const createProductOrder = catchAsync(async (req, res, next) => {
       status: 'success',
       data: {
         productOrder,
-        productOrderDetails: items,
-      },
+        productOrderDetails: items
+      }
     });
   });
 });
@@ -93,21 +100,21 @@ const cancelProductOrder = catchAsync(async (req, res, next) => {
 
     const productOrder = await ProductOrder.findOne({
       where: {
-        id: productorderId,
+        id: productorderId
       },
       include: [
         {
           model: ProductOrderDetail,
-          as: 'productOrderDetails',
-        },
-      ],
+          as: 'productOrderDetails'
+        }
+      ]
     });
 
     for (let item of productOrder.productOrderDetails) {
       let product = await Product.findOne({
         where: {
-          id: item.productId,
-        },
+          id: item.productId
+        }
       });
 
       product.stock = item.qty + product.stock;
@@ -120,7 +127,7 @@ const cancelProductOrder = catchAsync(async (req, res, next) => {
 
     res.status(200).json({
       status: 'success',
-      message: 'Order has been cancelled',
+      message: 'Order has been cancelled'
     });
   });
 });
@@ -133,12 +140,12 @@ const getProductOrderByUsers = catchAsync(async (req, res, next) => {
         model: ProductOrder,
         as: 'productOrders',
         attributes: {
-          exclude: ['userId', 'createdAt', 'updatedAt'],
+          exclude: ['userId', 'createdAt', 'updatedAt']
         },
-        required: true,
-      },
+        required: true
+      }
     ],
-    order: [[{ model: ProductOrder, as: 'productOrders' }, 'id', 'DESC']],
+    order: [[{ model: ProductOrder, as: 'productOrders' }, 'id', 'DESC']]
   });
 
   let modifyUser = [];
@@ -158,23 +165,23 @@ const getProductOrderByUsers = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      users: modifyUser,
-    },
+      users: modifyUser
+    }
   });
 });
 
 const updateProductOrder = catchAsync(async (req, res, next) => {
   const updateProductOrder = await ProductOrder.update(req.body, {
     where: {
-      id: req.params.id,
-    },
+      id: req.params.id
+    }
   });
 
   res.status(200).json({
     status: 'success',
     data: {
-      updateProductOrder,
-    },
+      updateProductOrder
+    }
   });
 });
 
@@ -185,4 +192,5 @@ module.exports = {
   getProductOrderByUsers,
   cancelProductOrder,
   updateProductOrder,
+  getOneProductOrders
 };
