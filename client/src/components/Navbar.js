@@ -1,18 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 
 import UserDropdown from './UserDropdown.js';
 
 export default function Navbar({ title }) {
+  const dispatch = useDispatch();
+  const [search, setSearch] = useState('');
+  const history = useHistory();
+
+  useEffect(() => {
+    dispatch({
+      type: 'onShearch',
+      payload: search
+    });
+  }, [search]);
+
   return (
     <>
       {/* Navbar */}
       <nav className="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
         <div className="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
           {/* Brand */}
+          <span
+            className="text-gray-800 text-sm uppercase hidden lg:inline-block font-semibold cursor-pointer mr-4"
+            onClick={(e) => history.goBack()}
+          >
+            <i class="fas fa-angle-left"></i>
+          </span>
           <a
-            className="text-gray-800 text-sm uppercase hidden lg:inline-block font-semibold"
-            href="#pablo"
+            className="text-gray-800 text-sm uppercase hidden lg:inline-block font-semibold cursor-pointer"
             onClick={(e) => e.preventDefault()}
+            href="/#"
           >
             {title}
           </a>
@@ -25,6 +44,8 @@ export default function Navbar({ title }) {
               <input
                 type="text"
                 placeholder="Search here..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
               />
             </div>

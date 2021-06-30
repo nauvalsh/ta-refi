@@ -11,12 +11,13 @@ function Register({ login, loading, error, registerAction }) {
 
   let initialValues = {
     email: '',
-    password: '',
+    password: ''
   };
 
   const formOnSubmit = (val) => {
     console.log('SUBMIT');
-
+    val.name = val.name.toUpperCase();
+    val.email = val.email.toLowerCase();
     registerAction(val);
   };
 
@@ -26,14 +27,16 @@ function Register({ login, loading, error, registerAction }) {
       .required('Email harus diisi')
       .lowercase(),
     password: Yup.string().required('Password harus diisi'),
-    phoneNumber: Yup.string().required('Phone Number harus diisi'),
-    name: Yup.string().required('Name harus diisi'),
+    phoneNumber: Yup.string()
+      .required('Phone Number harus diisi')
+      .matches(/^8[0-9]+$/, 'Must be only digits'),
+    name: Yup.string().required('Name harus diisi')
   });
 
   const formik = useFormik({
     initialValues,
     onSubmit: formOnSubmit,
-    validationSchema,
+    validationSchema
   });
 
   const inputOnChange = (e) => {
@@ -44,7 +47,7 @@ function Register({ login, loading, error, registerAction }) {
     const isLogin = Cookies.get('token') && localStorage.getItem('isLogin');
 
     if (isLogin) {
-      // window.location.assign('/pos');
+      window.location.assign('/product');
     }
   }, [login]);
 
@@ -61,7 +64,7 @@ function Register({ login, loading, error, registerAction }) {
               backgroundImage:
                 'url(' + require('assets/img/register_bg_2.png').default + ')',
               backgroundSize: '100%',
-              backgroundRepeat: 'no-repeat',
+              backgroundRepeat: 'no-repeat'
             }}
           ></div>
           <div className="container mx-auto px-4 h-full">
@@ -108,7 +111,7 @@ function Register({ login, loading, error, registerAction }) {
                         <input
                           type="text"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder="Phone Number"
+                          placeholder="812345678910"
                           style={{ transition: 'all .15s ease' }}
                           name="phoneNumber"
                           onChange={inputOnChange}
@@ -191,7 +194,7 @@ const mapStateToProps = (state) => {
   return {
     login: state.AuthReducer.login,
     loading: state.AuthReducer.loading,
-    error: state.AuthReducer.error,
+    error: state.AuthReducer.error
   };
 };
 

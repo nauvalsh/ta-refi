@@ -28,15 +28,15 @@ export const getRevenueAction = (data) => async (dispatch) => {
         name: restck.name,
         price: restck.price,
         type: 'RESTOCKSTOCKROOM',
-        createdAt: restck.createdAt,
+        createdAt: restck.createdAt
       })),
       ...productOrderShippings.map((shipping) => ({
         id: shipping.id,
         name: shipping.name,
         price: shipping.price,
         type: 'PRODUCTORDERSHIPPING',
-        createdAt: shipping.createdAt,
-      })),
+        createdAt: shipping.createdAt
+      }))
     ];
     const expenditureRestockStockRoom = parseInt(
       getExpenditureResponse.data.sumRestockStockRoom ?? 0
@@ -52,8 +52,8 @@ export const getRevenueAction = (data) => async (dispatch) => {
         revenue,
         sumRevenue,
         expenditure,
-        sumExpenditure,
-      },
+        sumExpenditure
+      }
     });
   } catch (e) {
     console.log(e);
@@ -61,18 +61,18 @@ export const getRevenueAction = (data) => async (dispatch) => {
 
     dispatch({
       type: REPORT_FAIL,
-      payload: e.response,
+      payload: e.response
     });
   }
 };
 
 export const exportUsersXL = async () => {
   try {
-    console.log('Hai from export users');
+    // console.log('Hai from export users');
     let ewe = await APIPOS.get(
       `/api/v1/exports/excel/users?accessToken=${Cookies.get('token')}`
     );
-    console.log(ewe.data);
+    // console.log(ewe.data);
   } catch (e) {
     console.log(e);
     console.log(e.response);

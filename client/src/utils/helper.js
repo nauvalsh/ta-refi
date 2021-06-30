@@ -12,7 +12,7 @@ export const moneyFormat = (price, sign = '$', delimeter = '.') => {
 };
 
 export const sortArr = function (props, arr) {
-  console.log(props);
+  // console.log(props);
   let prop = props.split('.');
   var len = prop.length;
 

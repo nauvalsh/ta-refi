@@ -19,7 +19,7 @@ export default function Category() {
   const errorMessage = null;
 
   let initialValues = {
-    categoryName: '',
+    categoryName: ''
   };
 
   const handleDelete = (e) => {
@@ -37,7 +37,7 @@ export default function Category() {
   };
 
   const formOnSubmit = (val) => {
-    console.log('SUBMIT');
+    // console.log('SUBMIT');
 
     setAPIPOS(`Bearer ${Cookies.get('token')}`);
     APIPOS.post('api/v1/categories', val)
@@ -51,13 +51,13 @@ export default function Category() {
   };
 
   let validationSchema = Yup.object({
-    categoryName: Yup.string().required('categoryName harus diisi'),
+    categoryName: Yup.string().required('categoryName harus diisi')
   });
 
   const formik = useFormik({
     initialValues,
     onSubmit: formOnSubmit,
-    validationSchema,
+    validationSchema
   });
 
   const inputOnChange = (e) => {
@@ -109,7 +109,7 @@ export default function Category() {
               </tr>
             </thead>
             <tbody>
-              {categories.length > 1 &&
+              {categories.length > 0 &&
                 categories.map((cat) => (
                   <tr>
                     <td>{cat.categoryName}</td>

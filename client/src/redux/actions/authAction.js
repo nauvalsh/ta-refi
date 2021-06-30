@@ -1,19 +1,11 @@
-import {
-  LOGIN_PENDING,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  REGISTER_PENDING,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-} from '../constants';
-
-import { APIPOS } from '../../utils/axios';
 import Cookies from 'js-cookie';
+import { APIPOS } from '../../utils/axios';
+import { LOGIN_FAIL, LOGIN_PENDING, LOGIN_SUCCESS } from '../constants';
 
 export const loginAction = (data) => async (dispatch) => {
   try {
     dispatch({
-      type: LOGIN_PENDING,
+      type: LOGIN_PENDING
     });
 
     const loginResponse = await APIPOS.post('api/v1/auth/login', data);
@@ -27,7 +19,7 @@ export const loginAction = (data) => async (dispatch) => {
 
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: loginResponse.data,
+        payload: loginResponse.data
       });
     }
   } catch (e) {
@@ -35,7 +27,7 @@ export const loginAction = (data) => async (dispatch) => {
 
     dispatch({
       type: LOGIN_FAIL,
-      payload: e.response,
+      payload: e.response
     });
   }
 };
@@ -43,7 +35,7 @@ export const loginAction = (data) => async (dispatch) => {
 export const registerAction = (data) => async (dispatch) => {
   try {
     dispatch({
-      type: LOGIN_PENDING,
+      type: LOGIN_PENDING
     });
 
     const loginResponse = await APIPOS.post('api/v1/auth/register', data);
@@ -57,7 +49,7 @@ export const registerAction = (data) => async (dispatch) => {
 
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: loginResponse.data,
+        payload: loginResponse.data
       });
     }
   } catch (e) {
@@ -65,7 +57,7 @@ export const registerAction = (data) => async (dispatch) => {
 
     dispatch({
       type: LOGIN_FAIL,
-      payload: e.response,
+      payload: e.response
     });
   }
 };
