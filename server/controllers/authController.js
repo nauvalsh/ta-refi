@@ -2,11 +2,12 @@ const catchAsync = require('../utils/catchAsync');
 const {
   registerNewUser,
   loginWithEmailAndPassword,
-  refreshAuth,
+  refreshAuth
 } = require('../services/authService');
 const { generateAuthToken } = require('../services/tokenService');
 
 exports.register = catchAsync(async (req, res, next) => {
+  req.body.email = req.body.email.toUpperCase();
   const newUser = await registerNewUser(req.body);
   const token = await generateAuthToken(newUser);
 
@@ -14,8 +15,8 @@ exports.register = catchAsync(async (req, res, next) => {
     status: 'success',
     data: {
       token,
-      user: newUser,
-    },
+      user: newUser
+    }
   });
 });
 
@@ -27,8 +28,8 @@ exports.login = catchAsync(async (req, res, next) => {
     status: 'success',
     data: {
       token,
-      user,
-    },
+      user
+    }
   });
 });
 
