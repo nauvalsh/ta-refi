@@ -44,7 +44,7 @@ export default function Dashboard() {
                       <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                           <h5 className="text-blueGray-400 uppercase font-bold text-xs">
-                            Total Penjualan Hari ini (Rp)
+                            Pemasukan Hari ini (Rp)
                           </h5>
                           <span className="font-semibold text-xl text-blueGray-700">
                             890.000
