@@ -18,7 +18,7 @@ function ProductAdd() {
   const [image, setImage] = useState('');
   const [desk, setDesk] = useState('');
   const [imagepreview, setImagePreview] = useState(null);
-  const [categoryId, setCategoryId] = useState('4');
+  const [categoryId, setCategoryId] = useState('');
 
   useEffect(() => {
     APIPOS.get('api/v1/categories')
@@ -68,6 +68,7 @@ function ProductAdd() {
 
   const submit = (e) => {
     e.preventDefault();
+    if (!categoryId) return alert('Categori tidak boleh kosong');
     const formdata = new FormData();
     formdata.append('categoryId', categoryId);
     formdata.append('productName', productName);
@@ -118,6 +119,7 @@ function ProductAdd() {
               className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
               onChange={(e) => setCategoryId(e.target.value)}
             >
+              <option value=""> - </option>
               {category.length > 0 &&
                 category.map((cat) => <option value={cat.id}>{cat.categoryName}</option>)}
             </select>
