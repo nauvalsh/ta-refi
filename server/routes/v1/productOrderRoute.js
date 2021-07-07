@@ -8,6 +8,8 @@ router
   .get(auth(), productOrderController.getProductOrders)
   .post(productOrderController.createProductOrder);
 
+router.route('/report/permonth').get(productOrderController.getProductOrderPerMonth);
+
 router.route('/users').get(productOrderController.getProductOrderByUsers);
 router.route('/:id').get(productOrderController.getOneProductOrders);
 

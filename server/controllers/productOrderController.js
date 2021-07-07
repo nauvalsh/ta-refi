@@ -10,7 +10,7 @@ const {
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const { getAll, createOne, deleteOne, getOne } = require('./refactorController');
-const { Op } = require('sequelize');
+const { Op, QueryTypes } = require('sequelize');
 
 let include = [
   {
@@ -185,6 +185,20 @@ const updateProductOrder = catchAsync(async (req, res, next) => {
   });
 });
 
+const getProductOrderPerMonth = catchAsync(async (req, res, next) => {
+  const results = await sequelize.query(
+    `SELECT DATE_FORMAT(productorders.orderDate, "%m-%Y") AS month, SUM(productorders.priceOrder) AS total
+  FROM productorders
+  GROUP BY DATE_FORMAT(productorders.orderDate, "%m-%Y")`,
+    { type: QueryTypes.SELECT }
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: results
+  });
+});
+
 module.exports = {
   getProductOrders,
   createProductOrder,
@@ -192,5 +206,6 @@ module.exports = {
   getProductOrderByUsers,
   cancelProductOrder,
   updateProductOrder,
-  getOneProductOrders
+  getOneProductOrders,
+  getProductOrderPerMonth
 };
