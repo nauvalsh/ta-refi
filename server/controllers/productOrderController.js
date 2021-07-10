@@ -11,6 +11,7 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const { getAll, createOne, deleteOne, getOne } = require('./refactorController');
 const { Op, QueryTypes } = require('sequelize');
+const dayjs = require('dayjs');
 
 let include = [
   {
@@ -199,6 +200,43 @@ const getProductOrderPerMonth = catchAsync(async (req, res, next) => {
   });
 });
 
+const getProductOrderCountPerDay = catchAsync(async (req, res, next) => {
+  const countToday = await sequelize.query(
+    `SELECT COUNT(*) AS todayOrders FROM productorders WHERE DATE(orderDate) = "${dayjs(
+      new Date()
+    ).format('YYYY-MM-DD')}"`,
+    { type: QueryTypes.SELECT }
+  );
+
+  const sumToday = await sequelize.query(
+    `SELECT SUM(priceOrder) AS todaySum FROM productorders WHERE DATE(orderDate) = "${dayjs(
+      new Date()
+    ).format('YYYY-MM-DD')}"`,
+    { type: QueryTypes.SELECT }
+  );
+
+  const newUserToday = await sequelize.query(
+    `SELECT COUNT(*) AS todayUsers FROM users WHERE DATE(createdAt) = "${dayjs(
+      new Date()
+    ).format('YYYY-MM-DD')}"`,
+    { type: QueryTypes.SELECT }
+  );
+
+  const totalUsers = await sequelize.query(`SELECT COUNT(*) AS totalUsers FROM users`, {
+    type: QueryTypes.SELECT
+  });
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      count: countToday[0].todayOrders,
+      sum: sumToday[0].todaySum,
+      newUsers: newUserToday[0].todayUsers,
+      totalUsers: totalUsers[0].totalUsers
+    }
+  });
+});
+
 module.exports = {
   getProductOrders,
   createProductOrder,
@@ -207,5 +245,6 @@ module.exports = {
   cancelProductOrder,
   updateProductOrder,
   getOneProductOrders,
-  getProductOrderPerMonth
+  getProductOrderPerMonth,
+  getProductOrderCountPerDay
 };

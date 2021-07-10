@@ -9,6 +9,9 @@ router
   .post(productOrderController.createProductOrder);
 
 router.route('/report/permonth').get(productOrderController.getProductOrderPerMonth);
+router
+  .route('/report/count/perday')
+  .get(productOrderController.getProductOrderCountPerDay);
 
 router.route('/users').get(productOrderController.getProductOrderByUsers);
 router.route('/:id').get(productOrderController.getOneProductOrders);

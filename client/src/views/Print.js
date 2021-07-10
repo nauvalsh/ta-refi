@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { APIPOS } from 'utils/axios';
 import { moneyFormat } from 'utils/helper';
 
@@ -8,6 +8,8 @@ const Print = () => {
   const { id } = useParams();
 
   const [order, setOrder] = useState(null);
+
+  const history = useHistory();
 
   useEffect(() => {
     APIPOS.get(`api/v1/productorders/${id}`)
@@ -27,6 +29,13 @@ const Print = () => {
   return (
     <>
       <div id="tombol" class="buttonPrint text-center mt-3">
+        <button
+          onClick={() => history.push('/orders')}
+          className="px-2 py-1 bg-purple-500 mr-3 rounded-md text-white"
+        >
+          {' '}
+          Back
+        </button>
         <button
           onClick={() => window.print()}
           className="px-2 py-1 bg-pink-500 rounded-md text-white"
