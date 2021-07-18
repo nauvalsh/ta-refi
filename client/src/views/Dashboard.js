@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Navbar from 'components/Navbar.js';
 import Sidebar from 'components/Sidebar.js';
 import LineChart from 'components/LineChart.js';
 import BarChart from 'components/BarChart.js';
+import { APIPOS } from 'utils/axios';
+import { moneyFormat } from 'utils/helper';
 
 export default function Dashboard() {
+  const [report, setReport] = useState({});
+
+  useEffect(() => {
+    APIPOS.get('api/v1/productorders/report/count/perday')
+      .then((res) => setReport(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(report);
+
   return (
     <>
       <Sidebar />
@@ -26,7 +38,7 @@ export default function Dashboard() {
                             Penjualan <br /> Hari Ini
                           </h5>
                           <span className="font-semibold text-xl text-blueGray-700">
-                            87
+                            {report && report.count}
                           </span>
                         </div>
                         <div className="relative w-auto pl-4 flex-initial">
@@ -44,10 +56,10 @@ export default function Dashboard() {
                       <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                           <h5 className="text-blueGray-400 uppercase font-bold text-xs">
-                            Pemasukan Hari ini (Rp)
+                            Total Pemasukan (Rp)
                           </h5>
                           <span className="font-semibold text-xl text-blueGray-700">
-                            890.000
+                            {moneyFormat(report && report.sumSales, 'Rp')}
                           </span>
                         </div>
                         <div className="relative w-auto pl-4 flex-initial">
@@ -68,7 +80,7 @@ export default function Dashboard() {
                             Pelanggan Baru Hari Ini
                           </h5>
                           <span className="font-semibold text-xl text-blueGray-700">
-                            7
+                            {report && report.newUsers}
                           </span>
                         </div>
                         <div className="relative w-auto pl-4 flex-initial">
@@ -89,7 +101,7 @@ export default function Dashboard() {
                             Total Customer
                           </h5>
                           <span className="font-semibold text-xl text-blueGray-700">
-                            70
+                            {report && report.totalUsers}
                           </span>
                         </div>
                         <div className="relative w-auto pl-4 flex-initial">

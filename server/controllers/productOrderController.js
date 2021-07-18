@@ -215,6 +215,11 @@ const getProductOrderCountPerDay = catchAsync(async (req, res, next) => {
     { type: QueryTypes.SELECT }
   );
 
+  const sumSales = await sequelize.query(
+    `SELECT SUM(priceOrder) AS salesSum FROM productorders`,
+    { type: QueryTypes.SELECT }
+  );
+
   const newUserToday = await sequelize.query(
     `SELECT COUNT(*) AS todayUsers FROM users WHERE DATE(createdAt) = "${dayjs(
       new Date()
@@ -231,6 +236,7 @@ const getProductOrderCountPerDay = catchAsync(async (req, res, next) => {
     data: {
       count: countToday[0].todayOrders,
       sum: sumToday[0].todaySum,
+      sumSales: sumSales[0].salesSum,
       newUsers: newUserToday[0].todayUsers,
       totalUsers: totalUsers[0].totalUsers
     }
