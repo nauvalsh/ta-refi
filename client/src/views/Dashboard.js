@@ -120,7 +120,7 @@ export default function Dashboard() {
         <div className="px-4 md:px-10 mx-auto w-full -m-24">
           <div className="flex flex-wrap">
             <LineChart />
-            <BarChart />
+            {/* <BarChart /> */}
           </div>
 
           <footer className="block py-4">

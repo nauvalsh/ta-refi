@@ -1,9 +1,14 @@
 import React from 'react';
 import Chart from 'chart.js';
+import Axios from 'axios';
 
 export default function LineChart() {
   React.useEffect(() => {
-    var config = {
+    var config;
+    Axios.get(`https://6edd-180-242-131-69.ngrok.io/testnode/api/v1/productorders/report/permonth`).then(res => {
+      console.log("RES REPORT: ", res.data.data);
+      
+    config = {
       type: 'line',
       data: {
         labels: [
@@ -21,16 +26,9 @@ export default function LineChart() {
             label: new Date().getFullYear(),
             backgroundColor: '#4c51bf',
             borderColor: '#4c51bf',
-            data: [65, 78, 66, 44, 56, 67, 75],
+            data: res.data.data.map(i => i.total),
             fill: false,
-          },
-          {
-            label: new Date().getFullYear() - 1,
-            fill: false,
-            backgroundColor: '#ed64a6',
-            borderColor: '#ed64a6',
-            data: [40, 68, 86, 74, 56, 60, 87],
-          },
+          }
         ],
       },
       options: {
@@ -106,6 +104,9 @@ export default function LineChart() {
     };
     var ctx = document.getElementById('line-chart').getContext('2d');
     window.myLine = new Chart(ctx, config);
+    })
+
+
   }, []);
   return (
     <>
